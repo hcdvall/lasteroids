@@ -83,7 +83,8 @@ public partial class AsteroidSpawnSystem : SystemBase
                 // so the x value must be from negative levelWidth/2 to positive levelWidth/2 (within padding)
                 var xPosition = rand.NextFloat(-1f*((settings.levelWidth)/2-padding), (settings.levelWidth)/2-padding);
                 // so the y value must be from negative levelHeight/2 to positive levelHeight/2 (within padding)
-                var yPosition = rand.NextFloat(-1f*((settings.levelHeight)/2-padding), (settings.levelHeight)/2-padding);
+                //var yPosition = rand.NextFloat(-1f*((settings.levelHeight)/2-padding), (settings.levelHeight)/2-padding);
+                var yPosition = 0.0f;
                 // so the z value must be from negative levelDepth/2 to positive levelDepth/2 (within padding)
                 var zPosition = rand.NextFloat(-1f*((settings.levelDepth)/2-padding), (settings.levelDepth)/2-padding);
                 
@@ -95,8 +96,10 @@ public partial class AsteroidSpawnSystem : SystemBase
                 //(not important to learn ECS, just a way to make an interesting prespawned shape)
                 if (chooseFace < 1) {xPosition = -1*((settings.levelWidth)/2-padding);}
                 else if (chooseFace < 2) {xPosition = (settings.levelWidth)/2-padding;}
-                else if (chooseFace < 3) {yPosition = -1*((settings.levelHeight)/2-padding);}
-                else if (chooseFace < 4) {yPosition = (settings.levelHeight)/2-padding;}
+                //else if (chooseFace < 3) {yPosition = -1*((settings.levelHeight)/2-padding);}
+                //else if (chooseFace < 4) {yPosition = (settings.levelHeight)/2-padding;}
+                else if (chooseFace < 3) {yPosition = 0;}
+                else if (chooseFace < 4) {yPosition = 0;}
                 else if (chooseFace < 5) {zPosition = -1*((settings.levelDepth)/2-padding);}
                 else if (chooseFace < 6) {zPosition = (settings.levelDepth)/2-padding;}
 
@@ -111,13 +114,13 @@ public partial class AsteroidSpawnSystem : SystemBase
 
                 //We will now set the PhysicsVelocity of our asteroids
                 //here we generate a random Vector3 with x, y and z between -1 and 1
-                var randomVel = new Vector3(rand.NextFloat(-1f, 1f), rand.NextFloat(-1f, 1f), rand.NextFloat(-1f, 1f));
+                var randomVel = new Vector3(rand.NextFloat(-1f, 1f), 0, rand.NextFloat(-1f, 1f));
                 //next we normalize it so it has a magnitude of 1
                 randomVel.Normalize();
                 //now we set the magnitude equal to the game settings
                 randomVel = randomVel * settings.asteroidVelocity;
                 //here we create a new VelocityComponent with the velocity data
-                var vel = new PhysicsVelocity{Linear = new float3(randomVel.x, randomVel.y, randomVel.z)};
+                var vel = new PhysicsVelocity{Linear = new float3(randomVel.x, 0, randomVel.z)};
                 //now we set the velocity component in our asteroid prefab
                 commandBuffer.SetComponent(e, vel);
 
