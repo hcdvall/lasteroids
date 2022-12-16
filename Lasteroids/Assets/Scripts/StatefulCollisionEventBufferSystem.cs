@@ -6,14 +6,6 @@ using Unity.Physics.Systems;
 
 namespace Unity.Physics.Stateful
 {
-    /// <summary>
-    /// This system converts stream of CollisionEvents to StatefulCollisionEvents that can be stored in a Dynamic Buffer.
-    /// In order for this conversion, it is required to:
-    ///    1) Use the 'Collide Raise Collision Events' option of the 'Collision Response' property on a <see cref="PhysicsShapeAuthoring"/> component, and
-    ///    2) Add a <see cref="StatefulCollisionEventBufferAuthoring"/> component to that entity (and select if details should be calculated or not)
-    /// or, if this is desired on a Character Controller:
-    ///    1) Tick the 'Raise Collision Events' flag on the <see cref="CharacterControllerAuthoring"/> component.
-    /// </summary>
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateAfter(typeof(StepPhysicsWorld))]
     [UpdateBefore(typeof(EndFramePhysicsSystem))]

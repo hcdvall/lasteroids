@@ -3,7 +3,6 @@ using Unity.Assertions;
 
 namespace Unity.Physics.Stateful
 {
-    // Trigger Event that can be stored inside a DynamicBuffer
     public struct StatefulTriggerEvent : IBufferElementData, IStatefulSimulationEvent<StatefulTriggerEvent>
     {
         public Entity EntityA { get; set; }
@@ -25,7 +24,6 @@ namespace Unity.Physics.Stateful
             State = default;
         }
 
-        // Returns other entity in EntityPair, if provided with one
         public Entity GetOtherEntity(Entity entity)
         {
             Assert.IsTrue((entity == EntityA) || (entity == EntityB));

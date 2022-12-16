@@ -6,15 +6,6 @@ using Unity.Collections;
 
 namespace Unity.Physics.Stateful
 {
-    /// <summary>
-    /// This system converts stream of TriggerEvents to StatefulTriggerEvents that can be stored in a Dynamic Buffer.
-    /// In order for this conversion, it is required to:
-    ///    1) Use the 'Raise Trigger Events' option of the 'Collision Response' property on a <see cref="PhysicsShapeAuthoring"/> component, and
-    ///    2) Add a <see cref="StatefulTriggerEventBufferAuthoring"/> component to that entity
-    /// or, if this is desired on a Character Controller:
-    ///    1) Tick the 'Raise Trigger Events' flag on the <see cref="CharacterControllerAuthoring"/> component.
-    ///       Note: the Character Controller will not become a trigger, it will raise events when overlapping with one
-    /// </summary>
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateAfter(typeof(StepPhysicsWorld))]
     [UpdateBefore(typeof(EndFramePhysicsSystem))]
@@ -97,7 +88,6 @@ namespace Unity.Physics.Stateful
                     {
                         var statefulEvent = statefulEvents[i];
 
-                        // Only add if the Entity has the Buffer and is not excluded
                         var addToEntityA = eventBuffers.HasComponent(statefulEvent.EntityA) && !eventExcludes.HasComponent(statefulEvent.EntityA);
                         var addToEntityB = eventBuffers.HasComponent(statefulEvent.EntityB) && !eventExcludes.HasComponent(statefulEvent.EntityB);
 

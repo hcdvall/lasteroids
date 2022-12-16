@@ -4,7 +4,6 @@ using Unity.Mathematics;
 
 namespace Unity.Physics.Stateful
 {
-    // Collision Event that can be stored inside a DynamicBuffer
     public struct StatefulCollisionEvent : IBufferElementData, IStatefulSimulationEvent<StatefulCollisionEvent>
     {
         public Entity EntityA { get; set; }
@@ -16,8 +15,6 @@ namespace Unity.Physics.Stateful
         public StatefulEventState State { get; set; }
         public float3 Normal;
 
-        // Only if CalculateDetails is checked on PhysicsCollisionEventBuffer of selected entity,
-        // this field will have valid value, otherwise it will be zero initialized
         internal Details CollisionDetails;
 
         public StatefulCollisionEvent(CollisionEvent collisionEvent)
@@ -33,19 +30,11 @@ namespace Unity.Physics.Stateful
             CollisionDetails = default;
         }
 
-        // This struct describes additional, optional, details about collision of 2 bodies
         public struct Details
         {
             internal bool IsValid;
-
-            // If 1, then it is a vertex collision
-            // If 2, then it is an edge collision
-            // If 3 or more, then it is a face collision
             public int NumberOfContactPoints;
-
-            // Estimated impulse applied
             public float EstimatedImpulse;
-            // Average contact point position
             public float3 AverageContactPointPosition;
 
             public Details(int numContactPoints, float estimatedImpulse, float3 averageContactPosition)
@@ -57,14 +46,12 @@ namespace Unity.Physics.Stateful
             }
         }
 
-        // Returns the other entity in EntityPair, if provided with other one
         public Entity GetOtherEntity(Entity entity)
         {
             Assert.IsTrue((entity == EntityA) || (entity == EntityB));
             return entity == EntityA ? EntityB : EntityA;
         }
 
-        // Returns the normal pointing from passed entity to the other one in pair
         public float3 GetNormalFrom(Entity entity)
         {
             Assert.IsTrue((entity == EntityA) || (entity == EntityB));
