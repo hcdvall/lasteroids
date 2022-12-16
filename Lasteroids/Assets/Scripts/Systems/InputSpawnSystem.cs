@@ -31,8 +31,8 @@ public partial class InputSpawnSystem : SystemBase
             return;
         }
 
-        byte shoot, selfDestruct, quitGame;
-        shoot = selfDestruct = quitGame = 0;
+        byte shoot, selfDestruct;
+        shoot = selfDestruct = 0;
         var playerCount = m_PlayerQuery.CalculateEntityCountWithoutFiltering();
 
         if (Input.GetKey("space"))
